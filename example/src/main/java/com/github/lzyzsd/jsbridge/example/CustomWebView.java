@@ -11,6 +11,7 @@ import com.github.lzyzsd.jsbridge.BridgeHandler;
 import com.github.lzyzsd.jsbridge.BridgeHelper;
 import com.github.lzyzsd.jsbridge.CallBackFunction;
 import com.github.lzyzsd.jsbridge.IWebView;
+import com.github.lzyzsd.jsbridge.OnBridgeCallback;
 import com.github.lzyzsd.jsbridge.WebViewJavascriptBridge;
 
 /**
@@ -70,13 +71,18 @@ public class CustomWebView extends WebView implements WebViewJavascriptBridge, I
     }
 
     @Override
-    public void send(String data) {
-        send(data, null);
+    public void sendToWeb(String data) {
+        sendToWeb(data, (OnBridgeCallback) null);
     }
 
     @Override
-    public void send(String data, CallBackFunction responseCallback) {
-        bridgeHelper.send(data, responseCallback);
+    public void sendToWeb(String data, OnBridgeCallback responseCallback) {
+        bridgeHelper.sendToWeb(data, responseCallback);
+    }
+
+    @Override
+    public void sendToWeb(String function, Object... values) {
+        bridgeHelper.sendToWeb(function, values);
     }
 
 
@@ -111,5 +117,4 @@ public class CustomWebView extends WebView implements WebViewJavascriptBridge, I
     public void callHandler(String handlerName, String data, CallBackFunction callBack) {
         bridgeHelper.callHandler(handlerName, data, callBack);
     }
-
 }

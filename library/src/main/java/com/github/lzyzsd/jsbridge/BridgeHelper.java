@@ -69,16 +69,6 @@ public class BridgeHelper implements WebViewJavascriptBridge {
         }
     }
 
-    @Override
-    public void send(String data) {
-        send(data, null);
-    }
-
-    @Override
-    public void send(String data, CallBackFunction responseCallback) {
-        doSend(null, data, responseCallback);
-    }
-
     /**
      * 保存message到消息队列
      *
@@ -285,4 +275,23 @@ public class BridgeHelper implements WebViewJavascriptBridge {
         }
         return false;
     }
+
+    @Override
+    public void sendToWeb(String data) {
+
+        sendToWeb(data, (OnBridgeCallback) null);
+
+    }
+
+    @Override
+    public void sendToWeb(String data, OnBridgeCallback responseCallback) {
+        doSend(null, data, (CallBackFunction) responseCallback);
+    }
+
+    @Override
+    public void sendToWeb(String function, Object... values) {
+
+    }
+
+
 }

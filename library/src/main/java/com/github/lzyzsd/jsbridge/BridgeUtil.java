@@ -21,13 +21,28 @@ public class BridgeUtil {
 	final static String JS_HANDLE_MESSAGE_FROM_JAVA = "javascript:WebViewJavascriptBridge._handleMessageFromNative(%s);";
 	final static String JS_FETCH_QUEUE_FROM_JAVA = "javascript:WebViewJavascriptBridge._fetchQueue();";
 	public final static String JAVASCRIPT_STR = "javascript:";
-
-
 	public static final String JAVA_SCRIPT = "WebViewJavascriptBridge.js";
-	public final static String UNDERLINE_STR = "_";
-	public final static String CALLBACK_ID_FORMAT = "JAVA_CB_%s";
-	public final static String JS_HANDLE_MESSAGE_FROM_JAVA = "javascript:WebViewJavascriptBridge._handleMessageFromNative('%s');";
-	public final static String JAVASCRIPT_STR = "javascript:%s";
+
+
+	public static String parseFunctionName(String jsUrl){
+		return jsUrl.replace("javascript:WebViewJavascriptBridge.", "").replaceAll("\\(.*\\);", "");
+	}
+
+	public static String getDataFromReturnUrl(String url) {
+		if (url.startsWith(YY_FETCH_QUEUE)) {
+			return url.replace(YY_FETCH_QUEUE, EMPTY_STR);
+		}
+		return url;
+	}
+
+	public static String getFunctionFromReturnUrl(String url) {
+		String temp = url.replace(YY_RETURN_DATA, EMPTY_STR);
+		String[] functionAndData = temp.split(SPLIT_MARK);
+		if(functionAndData.length >= 1){
+			return functionAndData[0];
+		}
+		return null;
+	}
 
 	/**
 	 * js 文件将注入为第一个script引用

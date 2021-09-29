@@ -24,6 +24,7 @@ import org.json.JSONObject;
 import java.net.URLEncoder;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -111,12 +112,12 @@ public class BridgeWebView extends WebView implements WebViewJavascriptBridge, B
     }
 
     @Override
-    public void sendToWeb(Object data) {
+    public void sendToWeb(String data) {
         sendToWeb(data, (OnBridgeCallback) null);
     }
 
     @Override
-    public void sendToWeb(Object data, OnBridgeCallback responseCallback) {
+    public void sendToWeb(String data, OnBridgeCallback responseCallback) {
         doSend(null, data, responseCallback);
     }
 
